@@ -1,6 +1,7 @@
 # This hash implementation is buggy
 # manzana for some reason gets added to the wrong bin
 # does not account for repeated keys but the gist of it is here.
+
 class MyHash
 	Element = Struct.new(:key, :value, :next)
 	INITIAL_SIZE = 7
@@ -75,8 +76,6 @@ class MyHash
 	end
 
 	def needs_resizing?
-		return false if count == 0
-
 		(count.to_f / size) > LOAD_FACTOR
 	end
 end
