@@ -1,4 +1,6 @@
 Person = Struct.new(:name, :distance, :seen, :friends)
+# distance is enough if one only wants the number
+# for the path we need :parent
 
 me = Person.new('me', 0, false, [:maria, :juan, :pedro] )
 
@@ -44,7 +46,7 @@ class Queue
 
 	def dequeue
 		new_head = @head.next
-		old_head = @head # is old head going to point to new head to?
+		old_head = @head
 		@head.next = nil
 		@head = new_head
 		@size -= 1
