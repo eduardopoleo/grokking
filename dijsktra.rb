@@ -1,8 +1,17 @@
 def dijkstra(g, source)
 	parents = { }
 	distances = { }
+
+	# TODO:
+	# - Implement Priority Queue, and re assess this algorithm.
+
+	# This case does not grant the use of an array cuz
+	# 	- We always need to do a linear scan to find the min (whether it's an array or list)
+	# 	- The deletion takes O(n) in the array where as in the list takes O(1)
+	# 	- Does it matter? considering the overall runtime of the algorithm?
 	queue = []
 
+	# O(E)
 	g.each do |item, adj|
 		parents[item] = nil
 		distances[item] = Float::INFINITY
@@ -12,8 +21,9 @@ def dijkstra(g, source)
 	parents[source] = nil
 	distances[source] = 0
 
+	# O(E^2)
 	while queue.length > 0
-		parent = lowest_distance_item(queue, distances)
+		parent = lowest_distance_item(queue, distances) #O(E)
 
 		adj = g[parent]
 
