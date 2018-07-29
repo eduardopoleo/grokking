@@ -35,31 +35,36 @@
 # Using clases (which is great)
 
 class Tree
-	attr_accessor :left, :right, :root
+	attr_accessor :left, :right, :root, :parent
 
 	def initialize(root)
 		@root = root # actual value 
 		@left = nil # subtree
 		@right = nil # subtree
+		@parent = nil
 	end
 
 	def insert_left(node)
+		new_node = Tree.new(node)
+		new_node.parent = self
+
 		if left
-			t = Tree.new(node)
-			t.left = self.left
-			self.left = t
+			new_node.left = self.left
+			self.left = new_node
 		else
-			self.left = Tree.new(node)
+			self.left = new_node
 		end
 	end
 
 	def insert_right(node)
+		new_node = Tree.new(node)
+		new_node.parent = self
+
 		if right
-			t = Tree.new(node)
-			t.right = self.right
-			self.right = t
+			new_node.right = self.right
+			self.right = new_node
 		else
-			self.right = Tree.new(node)
+			self.right = new_node
 		end
 	end
 
@@ -78,14 +83,14 @@ class Tree
 end
 
 
-a = Tree.new('a')
+# a = Tree.new('a')
 
-a.insert_left('b')
-a.insert_right('c')
+# a.insert_left('b')
+# a.insert_right('c')
 
-a.left.insert_right('d')
+# a.left.insert_right('d')
 
-a.right.insert_left('e')
-a.right.insert_right('f')
+# a.right.insert_left('e')
+# a.right.insert_right('f')
 
-a.to_s
+# a.to_s
