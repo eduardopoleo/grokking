@@ -34,18 +34,18 @@
 
 # Using clases (which is great)
 
-class Tree
-	attr_accessor :left, :right, :root, :parent
+class Node
+	attr_accessor :left, :right, :value, :parent
 
-	def initialize(root)
-		@root = root # actual value 
+	def initialize(value)
+		@value = value # actual value 
 		@left = nil # subtree
 		@right = nil # subtree
 		@parent = nil
 	end
 
-	def insert_left(node)
-		new_node = Tree.new(node)
+	def insert_left(value)
+		new_node = Node.new(value)
 		new_node.parent = self
 
 		if left
@@ -56,8 +56,8 @@ class Tree
 		end
 	end
 
-	def insert_right(node)
-		new_node = Tree.new(node)
+	def insert_right(value)
+		new_node = Node.new(value)
 		new_node.parent = self
 
 		if right
@@ -74,7 +74,7 @@ class Tree
 
 		while queue.length > 0
 			tree = queue.shift
-			p tree.root
+			p tree.value
 
 			queue << tree.left if tree.left
 			queue << tree.right if tree.right

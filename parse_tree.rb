@@ -13,17 +13,17 @@ class ParseTree
 
 	def build
 		tokens = exp.split('')
-		current_node = Tree.new('')
+		current_node = Node.new('')
 
 		tokens.each do |token|
 			if token == '('
 				current_node.insert_left('')
 				current_node = current_node.left
 			elsif !['+', '-', '/', '*', ')'].include?(token)
-				current_node.root = token.to_i
+				current_node.value = token.to_i
 				current_node = current_node.parent
 			elsif ['+', '-', '/', '*'].include?(token)
-				current_node.root = token
+				current_node.value = token
 				current_node.insert_right('')
 				current_node = current_node.right
 			elsif token == ')'
