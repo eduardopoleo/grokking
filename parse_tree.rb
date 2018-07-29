@@ -27,9 +27,11 @@ class ParseTree
 				current_node.value = token
 				current_node.insert_right('')
 				current_node = current_node.right
-			else
+			elsif token =~ /\A(\d)+\z/ # integers
 				current_node.value = token.to_i
 				current_node = current_node.parent
+			else
+				raise "Not valid character '#{token}'"
 			end
 		end
 
