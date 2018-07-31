@@ -18,6 +18,10 @@ root.right.insert_right('Section 2.2')
 root.right.right.insert_left('Section 2.2.1')
 root.right.right.insert_right('Section 2.2.2')
 
+# This looks like the equivalent to DFS.
+# One might also write this as a method of the tree
+# but it's better an external function cuz we usually do not only
+# do transverals.
 def preorder_transversal(root)
 	return if root.nil?
 

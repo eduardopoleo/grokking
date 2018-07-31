@@ -43,31 +43,29 @@ class ParseTree
 	def to_s
 		root.to_s
 	end
+end
 
-	def evaluate
-		evaluate_tree(root)
-	end
+def evaluate(node)
+	return if node.nil?
 
-	private
+	res1 = evaluate(node.left)
+	res2 = evaluate(node.right)
 
-	def evaluate_tree(node)
-		if node.left && node.right
-			left_value = evaluate_tree(node.left)
-			right_value = evaluate_tree(node.right)
-			operation = node.value.to_sym
-
-			left_value.send(operation, right_value)
-		else
-			node.value
-		end
+	if res1 && res2
+		operation = node.value
+		return res1.send(operation, res2)
+	else
+		return node.value
 	end
 end
 
 exp ='( ( 7 + 3 ) * ( 5 - 2 ) )'
 
 tree = ParseTree.build(exp)
+p '$$$ TREE $$$'
 tree.to_s
-p tree.evaluate
+p '$$$ EVALUATION $$$'
+p evaluate(tree.root)
 
 
 
