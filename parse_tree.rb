@@ -37,6 +37,9 @@ class ParseTree
 
 		@root = current_node
 
+		# This is weird and I did it so that I could call to_s 
+		# but the build should only return the root transverals
+		# are better done outside the tree class
 		self
 	end
 
@@ -48,6 +51,7 @@ end
 def evaluate(node)
 	return if node.nil?
 
+	# post order transversal
 	res1 = evaluate(node.left)
 	res2 = evaluate(node.right)
 
@@ -59,6 +63,15 @@ def evaluate(node)
 	end
 end
 
+def to_exp(node)
+	exp = ''
+	return exp if node.nil?
+
+	exp = '( ' + to_exp(node.left)
+	exp = exp + " #{node.value} "
+	exp = exp + to_exp(node.right) + ' )'
+end
+
 exp ='( ( 7 + 3 ) * ( 5 - 2 ) )'
 
 tree = ParseTree.build(exp)
@@ -66,6 +79,8 @@ p '$$$ TREE $$$'
 tree.to_s
 p '$$$ EVALUATION $$$'
 p evaluate(tree.root)
+
+p to_exp(tree.root)
 
 
 
