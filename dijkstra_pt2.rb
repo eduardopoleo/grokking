@@ -7,19 +7,29 @@ g = {
 	piano: {}
 }
 
+# Conditions:
+#  Directed (undirected graph are cyclic almost by definition)
+#  Acyclic graphs
+#  Positive weights
+
 def dijkstra(g, source)
 	distances, parents = initialize_table(g, source)
 	queue = PriorityQueue.new(distances.slice(source))
 
-	while queue.size > 0
-		min = queue.pop_min # { book: 0 }
+	# Queue will have all nodes O(V)
+	while queue.size > 0 
+		# potentially have as many nodes as there are in the graph
+		# pop the min O(log V)
+		min = queue.pop_min # { book: 0 } 
 
 		parent = min.keys.first
 		neighbors = g[parent]
 		parent_distance = distances[parent]
 
 		# do we need to worry about cycles?
+		# Will go through every single O(E)
 		neighbors.each do |name, distance|
+			# IMP: We have to next if we have already seen the node.
 			new_distance = parent_distance + distance
 
 			if new_distance < distances[name]
@@ -27,11 +37,14 @@ def dijkstra(g, source)
 				parents[name] = parent
 			end
 
-			queue.add(distances.slice(name))
+			# O(logV)
+			queue.add(distances.slice(name)) 
 		end
 	end
 
 	[distances, parents]
+
+	# O(V * logV + E * logV) => logV*(V + E)
 end
 
 def initialize_table(g, source)
