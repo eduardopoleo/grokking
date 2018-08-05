@@ -20,17 +20,13 @@ def dijkstra(g, source)
 	while queue.size > 0 
 		# potentially have as many nodes as there are in the graph
 		# pop the min O(log V)
-		min = queue.pop_min # { book: 0 } 
-
-		parent = min.keys.first
-		neighbors = g[parent]
-		parent_distance = distances[parent]
-
+		parent = queue.pop_min.keys.first # { book: 0 }.keys.first
 		# do we need to worry about cycles?
 		# Will go through every single O(E)
-		neighbors.each do |name, distance|
-			# IMP: We have to next if we have already seen the node.
-			new_distance = parent_distance + distance
+		g[parent].each do |name, distance|
+			# Do we care about nodes being seen already?
+			# does this ever happend if there are not cycles?
+			new_distance = distances[parent] + distance
 
 			if new_distance < distances[name]
 				distances[name] = new_distance
@@ -43,7 +39,6 @@ def dijkstra(g, source)
 	end
 
 	[distances, parents]
-
 	# O(V * logV + E * logV) => logV*(V + E)
 end
 
