@@ -38,7 +38,7 @@ def dijkstra(g, source)
 
 	# O(V)
 	while queue.length > 0
-		parent = lowest_distance_item(queue, distances) # O(2*V)
+		parent = lowest_distance_item(queue, distances) # O(V)
 
 		adj = g[parent]
 
