@@ -17,6 +17,31 @@ class BinaryHeap
 		self
 	end
 
+	def add(e)
+		@size = @size + 1
+		@list << e
+
+		i = @size
+
+		while i / 2 > 0
+			if list[i] < list[i/2]
+				swap(i, i/2)
+			end
+
+			i = i / 2
+		end
+
+		self
+	end
+
+	def get_min
+		swap(1, @size)
+		min = @list.delete_at(@size)
+		@size = @size - 1
+		move_down(1)
+		min
+	end
+
 	private
 
 	def move_down(idx)
@@ -53,5 +78,13 @@ alist = [33, 14, 9, 5, 17, 27, 18, 19, 11, 21]
 #=> [5, 9, 11, 14, 18, 19, 21, 33, 17, 27]
 
 heap = BinaryHeap.new.build(alist)
+
+p heap.list
+
+heap.add(3)
+
+p heap.list
+
+p heap.get_min
 
 p heap.list
