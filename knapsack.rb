@@ -5,10 +5,12 @@ KNAPSACK_MAX_WEIGTH = 4
 
 items = [
 	{ name: 'guitar', weight: 1, value: 1500 },
-	{ name: 'stereo', weight: 4, value: 3000 },
 	{ name: 'laptop', weight: 3, value: 2000 },
-	{ name: 'iphone', weight: 1, value: 2000 }
+	{ name: 'iphone', weight: 1, value: 2000 },
+	{ name: 'stereo', weight: 4, value: 3000 }
 ]
+# The algorithm is based on the formula
+
 
 def knapsack(items, max_weight)
 	grid = []
@@ -39,10 +41,17 @@ def knapsack(items, max_weight)
 			else
 				max_of_remaining = grid[previous_item][weight_remaning]
 
-				max_values << { 
-					value: max_of_remaining[:value] + item[:value],
-					items: max_of_remaining[:items] + [item[:name]]
-				}
+				previous_value = previous_max[:value]
+				current_value = max_of_remaining[:value] + item[:value]
+
+				if current_value > previous_value
+					max_values << { 
+						value: max_of_remaining[:value] + item[:value],
+						items: max_of_remaining[:items] + [item[:name]]
+					}
+				else
+					max_values << previous_max						
+				end
 			end
 		end
 	end
