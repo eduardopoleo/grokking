@@ -47,7 +47,7 @@ def knapsack(items, max_weight)
 		end
 	end
 
-	grid
+	grid[items.length - 1][max_weight]
 end
 
 require 'pp'
