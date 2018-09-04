@@ -28,6 +28,8 @@ def knapsack(items, max_weight)
 		max_values = []
 		grid << max_values
 
+		# this assume integer values
+		# for non integer e.g 0.5. we need to adjust the granularity (I think no need to make any other changes)
 		(0..max_weight).each do |weight|
 			previous_item = i - 1
 
