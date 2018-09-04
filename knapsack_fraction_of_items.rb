@@ -10,7 +10,7 @@ items = [
 ]
 # the dynamic programming solution won't work if we can take a fraction
 # of elements. But we can use a greddy solution
-
+# NOTE this assumes that the items are sorted by highest value
 def knapsack(items, bag_weight)
 	outstanding_weight = bag_weight
 	bag = { total: 0 }
